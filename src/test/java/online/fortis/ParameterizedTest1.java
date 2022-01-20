@@ -25,7 +25,6 @@ public class ParameterizedTest1 {
     //задисейбленный тест
     @Test
     @Disabled
-    @DisplayName("Задисейбленный тест :-)")
     void disabledTest(){
         System.out.println("Задисейбленный тест :-)");
     }
