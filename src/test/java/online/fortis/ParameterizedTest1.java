@@ -35,7 +35,7 @@ public class ParameterizedTest1 {
     @ParameterizedTest(name = "Обычный тест с параметром: {0}")
     void testWithParams(String testData) {
         $("[class=\"input js-input\"]").setValue(testData);
-        $$(".found a").first().click();
+        $(".found a").click();
         $$(".breadcrumbs-links a").last();
     }
 
@@ -48,7 +48,7 @@ public class ParameterizedTest1 {
     @ParameterizedTest(name = "тест с двумя параметрами {0} > {1}")
     void testWithCSVParams(String testData, String expectedResult) {
         $("[class=\"input js-input\"]").setValue(testData);
-        $$(".found a").first().click();
+        $(".found a").click();
         $(".breadcrumbs-links").$("a").sibling(0).shouldHave(text(expectedResult));
     }
 
@@ -65,7 +65,7 @@ public class ParameterizedTest1 {
     @ParameterizedTest(name = "тест с параметрами {0} > {1}")
         void testWithMethodSource(String testData, String expectedResult) {
             $("[class=\"input js-input\"]").setValue(testData);
-            $$(".found a").first().click();
+            $(".found a").click();
             $(".breadcrumbs-links").$("a").sibling(0).shouldHave(text(expectedResult));
         }
 
