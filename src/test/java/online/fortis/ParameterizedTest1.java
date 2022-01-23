@@ -11,15 +11,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ParameterizedTest1 {
 
-    @BeforeAll
+    @BeforeEach
     @DisplayName("Открываем Гисметео")
-    static void openPage() throws InterruptedException {
+    void openPage() {
         open("https://www.gismeteo.ru/");
-        TimeUnit.SECONDS.sleep(3);
+        $(".search-label").shouldBe(visible);
     }
 
     //задисейбленный тест
@@ -34,8 +35,8 @@ public class ParameterizedTest1 {
     @ParameterizedTest(name = "Обычный тест с параметром: {0}")
     void testWithParams(String testData) {
         $("[class=\"input js-input\"]").setValue(testData);
-        $$("[class=\"search-item list-item icon-menu icon-menu-gray\"]").first().click();
-        $(".breadcrumbs-links > .breadcrumbs-link:nth-child(3)").shouldHave(text(testData));
+        $$(".found a").first().click();
+        $$(".breadcrumbs-links a").last();
     }
 
     //тест с параметрами CSV (testData и expectedResult)
@@ -47,8 +48,8 @@ public class ParameterizedTest1 {
     @ParameterizedTest(name = "тест с двумя параметрами {0} > {1}")
     void testWithCSVParams(String testData, String expectedResult) {
         $("[class=\"input js-input\"]").setValue(testData);
-        $$("[class=\"search-item list-item icon-menu icon-menu-gray\"]").first().click();
-        $(".breadcrumbs-links > .breadcrumbs-link:nth-child(2)").shouldHave(text(expectedResult));
+        $$(".found a").first().click();
+        $(".breadcrumbs-links").$("a").sibling(0).shouldHave(text(expectedResult));
     }
 
 
@@ -64,7 +65,8 @@ public class ParameterizedTest1 {
     @ParameterizedTest(name = "тест с параметрами {0} > {1}")
         void testWithMethodSource(String testData, String expectedResult) {
             $("[class=\"input js-input\"]").setValue(testData);
-            $$("[class=\"search-item list-item icon-menu icon-menu-gray\"]").first().click();
-            $(".breadcrumbs-links > .breadcrumbs-link:nth-child(2)").shouldHave(text(expectedResult));
+            $$(".found a").first().click();
+            $(".breadcrumbs-links").$("a").sibling(0).shouldHave(text(expectedResult));
         }
+
 }
