@@ -1,5 +1,6 @@
 package online.fortis;
 
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,10 +18,14 @@ import static com.codeborne.selenide.Selenide.*;
 public class ParameterizedTest1 {
 
     @BeforeEach
-    @DisplayName("Открываем Гисметео")
     void openPage() {
         open("https://www.gismeteo.ru/");
         $(".search-label").shouldBe(visible);
+    }
+
+    @AfterEach
+    void closePage() {
+        closeWebDriver();
     }
 
     //задисейбленный тест
